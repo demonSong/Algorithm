@@ -1,6 +1,6 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay01_L0501 {
+public class SolutionDay01_L0687 {
 	
     public int longestUnivaluePath(TreeNode root) {
 		if (root == null) return 0;
@@ -49,7 +49,7 @@ public class SolutionDay01_L0501 {
 
 	
 	public static void main(String[] args) {
-		SolutionDay01_L0501 day = new SolutionDay01_L0501();
+		SolutionDay01_L0687 day = new SolutionDay01_L0687();
 		TreeNode root = new TreeNode(1);
 		root.left = new TreeNode(4);
 		root.right = new TreeNode(5);
