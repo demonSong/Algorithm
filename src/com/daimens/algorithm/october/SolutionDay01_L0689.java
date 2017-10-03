@@ -1,6 +1,8 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay01_L0503 {
+import java.util.Arrays;
+
+public class SolutionDay01_L0689 {
 	
 //  TLE
 //	class Triple{	
@@ -105,22 +107,17 @@ public class SolutionDay01_L0503 {
     	}
     	
     	int[] left = new int[n];
-    	for (int i = 0; i < n; ++i) {
-    		if (i - k >= 0) {
-    			if (left[i - 1] == -1) {
-    				left[i] = i - k;
-    			}
-    			else if (dp[i - k] <= dp[left[i - 1]]) {
-    				left[i] = left[i - 1];
-    			}
-    			else{
-    				left[i] = i - k;
-    			}
-    		}
-    		else {
-    			left[i] = -1;
-    		}
-    	}
+    	Arrays.fill(left, -1);
+     	for (int i = 0; i < n; ++i) {
+     		if (i - k >= 0) {
+     			if (i - k == 0 || dp[i - k] > dp[left[i - 1]]) {
+     				left[i] = i - k;
+     			}
+     			else {
+     				left[i] = left[i - 1];
+     			}
+     		}
+     	}
     	
     	int[] right = new int[n];
     	for (int i = n - 1; i >= 0; --i) {
@@ -157,7 +154,7 @@ public class SolutionDay01_L0503 {
     }
 
 	public static void main(String[] args) {
-		SolutionDay01_L0503 day = new SolutionDay01_L0503();
+		SolutionDay01_L0689 day = new SolutionDay01_L0689();
 		int[] nums = {18,11,14,7,16,4,18,11,4,8};
 		System.out.println(day.maxSumOfThreeSubarrays(nums, 2));
 	}
