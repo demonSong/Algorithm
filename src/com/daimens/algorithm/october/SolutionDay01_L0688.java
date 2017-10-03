@@ -1,6 +1,6 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay01_L0502 {
+public class SolutionDay01_L0688 {
 	
 //	int[][] dir = {{2, 1},{2, -1},{-2, -1},{-2, 1},{1, 2},{1, -2},{-1, 2},{-1, -2}};
 //	
@@ -44,41 +44,12 @@ public class SolutionDay01_L0502 {
 	
 	int[][] dir = {{2, 1},{2, -1},{-2, -1},{-2, 1},{1, 2},{1, -2},{-1, 2},{-1, -2}};
 	
-	double[][][] mem = new double[102][32][32];
-	public double f(int N, int K, int R, int C) {
-		if (K == 0) {
-			return 1;
-		}
-		if (mem[K][R][C] > 0) return mem[K][R][C];
-		double res = 0.0;
-		for (int[] d : dir) {
-			int nx = R + d[0];
-			int ny = C + d[1];
-			if (check(nx, ny, N)) {
-				res += 1 / 8.0 * f(N, K - 1, nx, ny);
-			}
-		}
-		
-		return mem[K][R][C] = res;
-	}
-	
-	public void fill(double[][][] mem) {
-		for (int i = 0; i < mem.length; ++i) {
-			for (int j = 0; j < mem[i].length; ++j) {
-				for (int k = 0; k < mem[i][j].length; ++k) {
-					mem[i][j][k] = -1;
-				}
-			}
-		}
-	}
-	
 	boolean check(int i, int j, int N) {
 		return i >= 0 && i < N && j >= 0 && j < N;
 	}
 	
-	
 	public double knightProbability(int N, int K, int r, int c) {
-		
+		double[][][] mem = new double[102][32][32];
 		for (int i = 0; i < N; ++i) {
 			for (int j = 0; j < N; ++j) {
 				mem[0][i][j] = 1;
@@ -101,6 +72,8 @@ public class SolutionDay01_L0502 {
 		return mem[K][r][c];
 	}
 	
+//	int[][] dir = {{2, 1},{2, -1},{-2, -1},{-2, 1},{1, 2},{1, -2},{-1, 2},{-1, -2}};
+//
 //	class Pair{
 //		int id;
 //		double pro;
@@ -153,7 +126,7 @@ public class SolutionDay01_L0502 {
 //	}
 	
 	public static void main(String[] args) {
-		SolutionDay01_L0502 day = new SolutionDay01_L0502();
+		SolutionDay01_L0688 day = new SolutionDay01_L0688();
 		System.out.println(day.knightProbability(8, 32, 6, 4));
 	}
 }
