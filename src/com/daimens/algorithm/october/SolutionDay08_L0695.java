@@ -1,6 +1,6 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay08_L0501 {
+public class SolutionDay08_L0695 {
 	
 	int[][] dir = {{1, 0},{-1, 0},{0, 1},{0, -1}};
     public int maxAreaOfIsland(int[][] grid) {
@@ -13,7 +13,7 @@ public class SolutionDay08_L0501 {
     	for (int i = 0; i < n; ++i) {
     		for (int j = 0; j < m; ++j) {
     			if (grid[i][j] == 1) {
-    				max = Math.max(max, dfs(grid, i, j, n, m, new boolean[n + 1][m + 1]));
+    				max = Math.max(max, dfs(grid, i, j, n, m, new boolean[n][m]));
     			}
     		}
     	}
@@ -35,6 +35,6 @@ public class SolutionDay08_L0501 {
     }
 	
 	public static void main(String[] args) {
-		SolutionDay08_L0501 day = new SolutionDay08_L0501();
+		SolutionDay08_L0695 day = new SolutionDay08_L0695();
 	}
 }
