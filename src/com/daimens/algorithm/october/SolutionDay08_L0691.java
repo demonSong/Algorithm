@@ -179,21 +179,19 @@ public class SolutionDay08_L0691 {
     				}
     			}
     			
-    			if (dp[now] == -1 || dp[now] > dp[state] + 1) {
-    				dp[now] = dp[state] + 1;
-    			}
+    			update(dp, now, state);
     		}
     	}
     	
     	return dp[(1 << N) - 1];
     }
     
-    int[] preprocess(String target) {
-    	int[] map = new int[32];
-    	for (char c : target.toCharArray()) map[c - 'a']++;
-    	return map;
+    public void update(int[] dp, int now, int state) {
+    	if (dp[now] == -1 || dp[now] > dp[state] + 1) {
+    		dp[now] = dp[state] + 1;
+    	}
     }
-	
+    
 	public static void main(String[] args) {
 		SolutionDay08_L0691 day = new SolutionDay08_L0691();
 //		String[] stickers = {"divide","danger","student","share","feet","say","expect","chair","special","blue","differ","thank","doctor","top","there","had","ice","mark","note","equate","basic","so","hope","happy","draw","evening","star","shall","thousand","mother","quite","letter","atom","baby","such","trouble","stand","day","room","third","level","salt","thing","shore","truck","block","time","fresh","dream","talk"};

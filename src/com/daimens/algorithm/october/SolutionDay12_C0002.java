@@ -8,19 +8,110 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay12_C0002 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C0002.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay12_C0002().run();
+	}
+	
+//	void read() {
+//		int n = ni();
+//		String s = ns();
+//		char[] cs = s.toCharArray();
+//		int max = 0;
+//		
+//		int[][] dp = new int[n][n];  // 区间内0的个数
+//		for (int i = 0; i < n; ++i) {
+//			dp[i][i] = cs[i] == '0' ? 1 : 0;
+//		}
+//		
+//		for (int i = 0; i < n; ++i) {
+//			for (int j = i - 1; j >= 0; --j) {
+//				if ((i - j + 1 & 1) != 0) {
+//					dp[j][i] = dp[j + 1][i - 1];
+//					if (cs[i] == '0') dp[j][i] += 1;
+//					if (cs[j] == '0') dp[j][i] += 1;
+//				}
+//				else {
+//					if (i - j + 1 == 2) {
+//						if (cs[i] == '0') dp[j][i] += 1;
+//						if (cs[j] == '0') dp[j][i] += 1;
+//						if (dp[j][i] == (i - j + 1) / 2) max = Math.max(max, i - j + 1);
+//					}
+//					else {
+//						dp[j][i] = dp[j + 1][i - 1];
+//						if (cs[i] == '0') dp[j][i] += 1;
+//						if (cs[j] == '0') dp[j][i] += 1;
+//						if (dp[j][i] == (i - j + 1) / 2) max = Math.max(max, i - j + 1);
+//					}
+//				}
+//			}
+//		}
+//		out.println(max);
+//	}
+	
+//	void read() {
+//		int n = ni();
+//		String s = ns();
+//		char[] cs = s.toCharArray();
+//		int max = 0;
+//		
+//		int[] dp = new int[n];
+//		for (int i =0; i < n; ++i) {
+//			dp[i] = cs[i] == '1' ? 1 : 0;
+//		}
+//		
+//		int[] sum = new int[n + 1];
+//		for (int i = 0; i < n; ++i) {
+//			sum[i + 1] = sum[i] + dp[i];
+//		}
+//		
+//		for (int i = 2; i <= n; ++i) {
+//			for (int j = i - 2; j >= 0; j -=2) {
+//				int cc = sum[i] - sum[j];
+//				if (cc == (i - j) / 2) max = Math.max(max, i - j);
+//			}
+//		}
+//		out.println(max);
+//	}
+	
+	void solve(char[] cs, int i, int j) {
+		
 	}
 	
 	void read() {
+		int n = ni();
+		String s = ns();
+		char[] cs = s.toCharArray();
+		int max = 0;
 		
+		int[] num = new int[n];
+		for (int i = 0; i < n; ++i) {
+			num[i] = cs[i] == '0' ? -1 : 1;
+		}
+		
+		int[] sum = new int[n + 1];
+		for (int i = 0; i < n; ++i) {
+			sum[i + 1] = sum[i] + num[i];
+		}
+		
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i <= n; ++i) {
+			if (!map.containsKey(sum[i])) {
+				map.put(sum[i], i);
+			}
+			else {
+				int j = map.get(sum[i]);
+				max = Math.max(max, i - j);
+			}
+		}
+		out.println(max);
 	}
 
 	FastScanner in;

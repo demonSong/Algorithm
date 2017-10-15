@@ -56,14 +56,44 @@ public class SolutionDay08_M0001 {
 				}
 			}
 		}
+		
 		return false;
 	}
 	
+	
+	   public String countAndSay(int n) {
+	        String[] s = new String[n + 1];
+	        s[1] = "1";
+	        for (int j = 2; j <= n; ++j){
+	            // count
+	            char[] cs = s[j - 1].toCharArray();
+	            StringBuilder sb = new StringBuilder();
+	            int pre = cs[0] - '0';
+	            int cnt = 1;
+	            for (int i = 1; i < cs.length; ++i){
+	                if (cs[i] - '0' != pre){
+	                    sb.append("" + cnt + pre);
+	                    cnt = 1;
+	                }
+	                else{
+	                    cnt ++;
+	                }
+	                pre = cs[i] - '0';
+	            }
+	            
+	            sb.append("" + cnt + pre);
+	            s[j] = sb.toString();
+	        }
+	        
+	        return s[n];
+	    }
+	   
 	public static void main(String[] args) {
 		SolutionDay08_M0001 day = new SolutionDay08_M0001();
 		char[][] board = {"..9478...".toCharArray(), "7........".toCharArray(), ".2.1.9...".toCharArray(), "..7...24.".toCharArray()
 				,".64.1.59.".toCharArray(), ".98...3..".toCharArray(), "...8.3.2.".toCharArray(), "........6".toCharArray()
 				,"...2759..".toCharArray()};
 		day.solveSudoku(board);
+		System.out.println(day.countAndSay(5));
 	}
 }

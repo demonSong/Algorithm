@@ -7,22 +7,57 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay12_C0004 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C0004.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay12_C0004().run();
 	}
 	
-	void read() {
-		
+	void swap(int[] arra, int i, int j) {
+		int tmp = arra[i];
+		arra[i] = arra[j];
+		arra[j] = tmp;
 	}
-
+	
+	void unsort(int[] arra, int l, int r) {
+		if (l >= r - 1)	return;
+		if (cnt == k) return;
+		int mid = (l + r) / 2;
+		swap(arra, mid, mid - 1);
+		cnt += 2;
+		if (cnt != k) unsort(arra, l, mid);
+		if (cnt != k) unsort(arra, mid, r);
+	}
+	
+	int cnt = 1, k;
+	void read() {
+		int n = ni();
+		k = ni();
+		int[] arra = new int[n];
+		for (int i = 1; i <= n; ++i) {
+			arra[i - 1] = i;
+		}
+		
+		if (k % 2 == 0) {
+			out.println(-1);
+			return;
+		}
+		
+		unsort(arra, 0, n);
+		if (k != cnt) {
+			out.println(-1);
+		}
+		else {
+			for (int i = 0; i < n; ++i) {
+				out.print(arra[i] + (i + 1 == n ? "\n" : " "));
+			}
+		}
+	}
+	
 	FastScanner in;
 	PrintWriter out;
 	
@@ -142,56 +177,6 @@ public class ZMODEL2 {
 			return more.charAt(0);
 		}
 	}
-	
-	static class D{
-		
-		public static void pp(int[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-		
-		public static void pp(char[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-	}
-	
-	static class ArrayUtils {
-
-		public static void fill(int[][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				Arrays.fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-	}
-	
-	static class Num{
-		public static <K> void inc(Map<K, Integer> mem, K k) {
-			if (!mem.containsKey(k)) mem.put(k, 0);
-			mem.put(k, mem.get(k) + 1);
-		}
-	}
 }
+
 

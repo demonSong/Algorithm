@@ -11,17 +11,62 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay12_C0003 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C0003.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay12_C0003().run();
 	}
 	
+	int max = 0;
+	int min = 0;
 	void read() {
+		int n = ni();
+		int m = ni();
+		int k = ni();
+			
+		max = 0;
+		min = 0;
 		
+		int[][] matrix = new int[n][m];
+		for (int i = 0; i < n; ++i) {
+			for (int j = 0; j < m; ++j) {
+				matrix[i][j] = ni();
+			}
+		}
+		
+		for (int i = 0; i < m; ++i) {
+			solve(matrix, n, i, k);
+		}
+		
+		out.println(max + " " + min);
 	}
+	
+	void solve(int[][] matrix, int n, int m, int k) {
+		int sum = 0;
+		for (int i = 0; i < Math.min(k, n); ++i) {
+			sum += matrix[i][m];
+		}
+		
+		int max_sum = sum;
+		int max_cnt = 0;
+		
+		int cnt = 0;
+		for (int i = 1; i < n; ++i) {
+			if (matrix[i - 1][m] == 1) cnt++;
+			sum -= matrix[i - 1][m];
+			if (i + k - 1 < n) sum += matrix[i + k - 1][m];
+			if (max_sum < sum && matrix[i][m] == 1) {
+				max_sum = sum;
+				max_cnt = cnt;
+			}
+		}
+		
+		max += max_sum;
+		min += max_cnt;
+	}
+	
 
 	FastScanner in;
 	PrintWriter out;

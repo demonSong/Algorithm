@@ -11,16 +11,44 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay15_C440C {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C440C.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay15_C440C().run();
 	}
 	
 	void read() {
-		
+		int q = ni();
+		for (int i = 0; i < q; ++i) {
+			// 4 or 6 
+			int n = ni();
+			if (n % 4 == 0) out.println(n / 4);
+			else{
+				int k = n / 4;
+				int ans = -1;
+				for (int j = k; j >= 0; --j) {
+					int rem = n - j * 4;
+					if (rem % 6 != 0) {
+						int l = rem / 6;
+						for (int jj = l; jj >= 0; --jj) {
+							int next = rem - 6 * jj;
+							if (next % 9 == 0) {
+								ans = Math.max(ans, j + jj + next / 9);
+								j = -1;
+								break;
+							}
+						}
+					}
+					else {
+						ans = Math.max(ans, j + rem / 6);
+						break;
+					}
+				}
+				out.println(ans);
+			}
+		}
 	}
 
 	FastScanner in;

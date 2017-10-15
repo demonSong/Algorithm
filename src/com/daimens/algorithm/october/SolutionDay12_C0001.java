@@ -11,16 +11,27 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay12_C0001 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C0001.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay12_C0001().run();
 	}
 	
 	void read() {
-		
+		int n = ni();
+		int k = ni();
+		int x = ni();
+		int[] arra = new int[n];
+		for (int i = 0; i < n; ++i) {
+			arra[i] = ni();
+		}
+		int sum = 0;
+		for (int i = 0; i < n - k; ++i) {
+			sum += arra[i];
+		}
+		out.println(sum + k * x);
 	}
 
 	FastScanner in;
@@ -29,7 +40,7 @@ public class ZMODEL2 {
 	void run() throws IOException {
 		boolean oj;
 		try {
-			oj = ! System.getProperty("user.dir").equals("F:\\oxygen_workspace\\Algorithm");
+			oj = ! System.getProperty("user.dir").equals("F:\\java_workspace\\leetcode");
 		} catch (Exception e) {
 			oj = System.getProperty("ONLINE_JUDGE") != null;
 		}

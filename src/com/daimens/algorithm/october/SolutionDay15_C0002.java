@@ -11,18 +11,57 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay15_C0002 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C440B.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay15_C0002().run();
 	}
 	
+	static final int INF = 0x3f3f3f3f;
+	
 	void read() {
+		int n = ni();
+		int k = ni();
+		int[] nums = new int[n];
+		int min = INF;
+		int max = -INF;
+		for (int i = 0; i < n; ++i) {
+			nums[i] = ni();
+			max = Math.max(max, nums[i]);
+			min = Math.min(min, nums[i]);
+		}
 		
+		if (k == 1) {
+			out.println(min);
+		}
+		else if (k >= 3){
+			out.println(max);
+		}
+		else {
+			// k = 2
+			if (max == nums[0] || max == nums[n - 1]) out.println(max);
+			else {
+				int ans = 0;
+				for (int i = 1; i < n; ++i) {
+					int min1 = INF;
+					for (int j = 0; j < i; ++j) {
+						min1 = Math.min(min1, nums[j]);
+					}
+					
+					int min2 = INF;
+					for (int j = i; j < n; ++j) {
+						min2 = Math.min(min2, nums[j]);
+					}
+					
+					ans = Math.max(ans, Math.max(min1, min2));
+				}
+				out.println(ans);
+			}
+		}
 	}
-
+	
 	FastScanner in;
 	PrintWriter out;
 	

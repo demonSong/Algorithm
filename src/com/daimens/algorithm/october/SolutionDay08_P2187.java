@@ -8,19 +8,108 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay08_P2187 {
 	
 	String INPUT = "./data/judge/201710/P2187.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay08_P2187().run();
 	}
 	
-	void read() {
+	static final int MAX_N = 50000 + 16;
+	int N;
+	
+	class P implements Comparable<P>{
+		int x;
+		int y;
 		
+		P(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+		
+		P sub(P a) {
+			return new P(x - a.x, y - a.y);
+		}
+		
+		int det(P a) {
+			return x * a.y - y * a.x;
+		}
+
+		@Override
+		public int compareTo(P o) {
+			return x != o.x ? x - o.x : y - o.y;
+		}
+	}
+	
+	P[] ps;
+	
+	int dist(P a, P b) {
+		int dx = a.x - b.x;
+		int dy = a.y - b.y;
+		return dx * dx + dy * dy;
+	}
+	
+	P[] convexHull() {
+		P[] qs = new P[2 * N];
+		Arrays.sort(ps);
+		int k = 0;
+		for (int i = 0; i < N; ++i) {
+			while (k > 1 && qs[k - 1].sub(qs[k - 2]).det(ps[i].sub(qs[k - 1])) <= 0) k--;
+			qs[k++] = ps[i];
+		}
+		
+		for (int i = N - 2, t = k; i >= 0; --i) {
+			while (k > t && qs[k - 1].sub(qs[k - 2]).det(ps[i].sub(qs[k - 1])) <= 0) k--;
+			qs[k++] = ps[i];
+		}
+		
+		k --;
+		P[] res = new P[k];
+		System.arraycopy(qs, 0, res, 0, k);
+		return res;
+	}
+
+	void solve() {
+		P[] qs = convexHull();
+		int n = qs.length;
+		if (n == 2) {
+			out.println(dist(qs[0], qs[1]));
+			return;
+		}
+		
+		int i = 0;
+		int j = 0;
+		for (int k = 1; k < n; ++k) {
+			if (qs[k].x < qs[i].x) i = k;
+			if (qs[k].x > qs[j].x) j = k;
+		}
+		
+		int si = i;
+		int sj = j;
+		
+		int max = 0;
+		while (i != sj || j != si) {
+			max = Math.max(max, dist(qs[i], qs[j]));
+			if (qs[(i + 1) % n].sub(qs[i]).det(qs[(j + 1) % n].sub(qs[j])) < 0) {
+				i = (i + 1) % n;
+			}
+			else {
+				j = (j + 1) % n;
+			}
+		}
+		out.println(max);
+	}	
+	
+	void read() {
+		N = ni();
+		ps = new P[N];
+		for (int i = 0; i < N; ++i) {
+			ps[i] = new P(ni(), ni());
+		}
+		solve();
 	}
 
 	FastScanner in;
@@ -140,57 +229,6 @@ public class ZMODEL2 {
 			String more = next;
 			next = null;
 			return more.charAt(0);
-		}
-	}
-	
-	static class D{
-		
-		public static void pp(int[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-		
-		public static void pp(char[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-	}
-	
-	static class ArrayUtils {
-
-		public static void fill(int[][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				Arrays.fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-	}
-	
-	static class Num{
-		public static <K> void inc(Map<K, Integer> mem, K k) {
-			if (!mem.containsKey(k)) mem.put(k, 0);
-			mem.put(k, mem.get(k) + 1);
 		}
 	}
 }

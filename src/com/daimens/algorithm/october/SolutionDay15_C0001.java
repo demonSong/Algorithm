@@ -8,20 +8,40 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
-public class ZMODEL2 {
+public class SolutionDay15_C0001 {
 	
-	String INPUT = "./data/judge/201710/P2187.txt";
+	String INPUT = "./data/judge/201710/C0001.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new ZMODEL2().run();
+		new SolutionDay15_C0001().run();
 	}
 	
 	void read() {
+		int n = ni();
+		int m = ni();
+		Set<Integer> h1 = new HashSet<>();
+		Set<Integer> h2 = new HashSet<>();
 		
+		for (int i = 0; i < n; ++i) h1.add(ni());
+		for (int i = 0; i < m; ++i) h2.add(ni());
+		
+		for (int i = 1; i <= 99; ++i) {
+			int a1 = i / 10;
+			int a2 = i % 10;
+			if (a1 == 0) a1 = a2;
+			
+			if (h1.contains(a1) && h2.contains(a2) || h1.contains(a2) && h2.contains(a1)) {
+				out.println(i);
+				return;
+			}
+		}
 	}
+	
 
 	FastScanner in;
 	PrintWriter out;
