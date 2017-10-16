@@ -11,43 +11,102 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class SolutionDay15_C0002 {
+public class SolutionDay16_P2079 {
 	
-	String INPUT = "./data/judge/201710/C440B.txt";
+	String INPUT = "./data/judge/201710/P2079.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new SolutionDay15_C0002().run();
+		new SolutionDay16_P2079().run();
 	}
 	
-	static final int INF = 0x3f3f3f3f;
-	
-	void read() {
-		int n = ni();
-		int k = ni();
-		int[] nums = new int[n];
-		int min = INF;
-		int max = -INF;
-		for (int i = 0; i < n; ++i) {
-			nums[i] = ni();
-			max = Math.max(max, nums[i]);
-			min = Math.min(min, nums[i]);
+	class P implements Comparable<P>{
+		int x;
+		int y;
+		
+		P(int x, int y){
+			this.x = x;
+			this.y = y;
 		}
 		
-		if (k == 1) {
-			out.println(min);
+		P sub(P a) {
+			return new P(x - a.x, y - a.y);
 		}
-		else if (k >= 3){
-			out.println(max);
+		
+		int det(P a) {
+			return x * a.y - y * a.x;
 		}
-		else {
-			// k = 2
-			if (max == nums[0] || max == nums[n - 1]) out.println(max);
-			else {
-				out.println(Math.max(nums[0], nums[n - 1]));
-			}
+		
+		@Override
+		public int compareTo(P o) {
+			return x - o.x != 0 ? x - o.x : y - o.y;
 		}
+		
 	}
 	
+	int N;
+	P[] p;
+	
+	double area(P a, P b, P c) {
+		double ans = (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
+		return 0.5 * Math.abs(ans);
+	}
+	
+	P[] convexHull() {
+		Arrays.sort(p);
+		P[] qs = new P[2 * N];
+		int k = 0;
+		for (int i = 0; i < N; ++i) {
+			while (k > 1 && qs[k - 1].sub(qs[k - 2]).det(p[i].sub(qs[k - 2])) < 0) k --;
+			qs[k++] = p[i];
+		}
+		
+		for (int i = N - 2, t = k; i >= 0; --i) {
+			while (k > t && qs[k - 1].sub(qs[k - 2]).det(p[i].sub(qs[k - 2])) < 0) k--;
+			qs[k++] = p[i];
+		}
+		
+		P[] res = new P[k - 1];
+		System.arraycopy(qs, 0, res, 0, k - 1);
+		return res;
+	}
+	
+	void solve() {
+		P[] qs = convexHull();
+		int n = qs.length;
+		double ans = 0;
+		
+		for (int offset = 1; offset < (n + 1) / 2; ++offset) {
+			int fir = 0;
+			int pos = (fir + offset + 1) % n;
+			do {
+				int sec = (fir + offset) % n;
+				while ((pos + 1) % n != fir && area(qs[fir % n], qs[sec % n], qs[(pos + 1) % n]) 
+						   >= area(qs[fir % n], qs[sec % n], qs[pos % n])) {
+					pos = (pos + 1) % n;
+				}
+				ans = Math.max(ans, area(qs[fir % n], qs[sec % n], qs[pos % n]));
+				fir = (fir + 1) % n;
+			}
+			while (fir != 0);
+		}
+		
+		out.printf("%.2f\n", ans);
+	}
+	
+	void read() {
+		while (true) {
+			N = ni();
+			if (N == -1) break;
+			p = new P[N];
+			
+			for (int i = 0; i < N; ++i) {
+				p[i] = new P(ni(), ni());
+			}
+			
+			solve();
+		}
+	}
+
 	FastScanner in;
 	PrintWriter out;
 	

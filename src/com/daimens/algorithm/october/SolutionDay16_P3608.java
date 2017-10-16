@@ -7,47 +7,133 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-public class SolutionDay15_C0002 {
+public class SolutionDay16_P3608 {
 	
-	String INPUT = "./data/judge/201710/C440B.txt";
+	String INPUT = "./data/judge/201710/P3608.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new SolutionDay15_C0002().run();
+		new SolutionDay16_P3608().run();
 	}
 	
 	static final int INF = 0x3f3f3f3f;
+	static final double EPS = 1e-8;
 	
-	void read() {
-		int n = ni();
-		int k = ni();
-		int[] nums = new int[n];
-		int min = INF;
-		int max = -INF;
-		for (int i = 0; i < n; ++i) {
-			nums[i] = ni();
-			max = Math.max(max, nums[i]);
-			min = Math.min(min, nums[i]);
+	class P implements Comparable<P>{
+		
+		double x;
+		double y;
+		
+		P(double x, double y){
+			this.x = x;
+			this.y = y;
 		}
 		
-		if (k == 1) {
-			out.println(min);
+		P sub(P a) {
+			return new P(x - a.x, y - a.y);
 		}
-		else if (k >= 3){
-			out.println(max);
+		
+		double det(P a) {
+			return x * a.y - y * a.x;
 		}
-		else {
-			// k = 2
-			if (max == nums[0] || max == nums[n - 1]) out.println(max);
-			else {
-				out.println(Math.max(nums[0], nums[n - 1]));
-			}
+		
+		@Override
+		public int compareTo(P o) {
+			return Double.compare(x, o.x) == 0 ? Double.compare(y, o.y) : Double.compare(x, o.x);
+		}
+		
+		@Override
+		public String toString() {
+			return x + "," + y;
 		}
 	}
 	
+	int N, M;
+	P[] p;
+	P[] q;
+	
+	double dist(P a, P b) {
+		double dx = a.x - b.x;
+		double dy = a.y - b.y;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	
+	// ab 垂直 ac
+	double verticle(P a, P b, P c) {
+		return (b.x - a.x) * (c.x - a.x) + (b.y - a.y) * (c.y - a.y);
+	}
+	
+	double cross(P a, P b, P c) {
+		return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+	}
+	
+	// 点c到直线ab的最短距离
+	double min(P a, P b, P c) {
+		if (dist(a, b) < EPS) return dist(b, c);
+		if (verticle(a, b, c) < EPS) return dist(a, c);
+		if (verticle(b, a, c) < EPS) return dist(b, c);
+		return Math.abs(cross(a, b, c) / dist(a, b));
+	}
+	
+	double min(P a, P b, P c, P d) {
+		return Math.min(Math.min(min(a, b, c), min(a, b, d)), Math.min(min(c, d, a), min(c, d, b)));
+	}
+	
+	double solve(P[] a, P[] b, int n, int m) {
+		
+		P[] ps = new P[n + 1];
+		P[] qs = new P[m + 1];
+		System.arraycopy(a, 0, ps, 0, n);
+		System.arraycopy(b, 0, qs, 0, m);
+		
+		ps[n] = ps[0];
+		qs[m] = qs[0];
+		
+		int ymin = 0;
+		int ymax = 0;
+		
+		for (int i = 0; i < n; ++i) if (ps[i].y < ps[ymin].y) ymin = i;
+		for (int i = 0; i < m; ++i) if (qs[i].y > qs[ymax].y) ymax = i;
+		
+		double ans = INF;
+		double tmp = 0.0;
+		for (int i = 0; i < n; ++i) {
+			
+			while ((tmp = cross(ps[ymin + 1], qs[ymax + 1], ps[ymin]) - cross(ps[ymin + 1], qs[ymax], ps[ymin])) > EPS) {
+				ymax = (ymax + 1) % m;
+			}
+			if (tmp + EPS < 0) ans = Math.min(ans, min(ps[ymin], ps[ymin + 1], qs[ymax]));
+			else ans = Math.min(ans, min(ps[ymin], ps[ymin + 1], qs[ymax], qs[ymax + 1]));
+			ymin = (ymin + 1) % n;
+		}
+		
+		return ans;
+	}
+	
+	void read() {
+		while (true) {
+			N = ni();
+			M = ni();
+			
+			if (N + M == 0) break;
+			
+			p = new P[N];
+			q = new P[M];
+			
+			for (int i = 0; i < N; ++i) {
+				p[i] = new P(nd(), nd());
+			}
+			
+			for (int i = 0; i < M; ++i) {
+				q[i] = new P(nd(), nd());
+			}
+			
+			out.printf("%.5f\n", Math.min(solve(p, q, N, M), solve(q, p, M, N)));
+			
+		}
+	}
+
 	FastScanner in;
 	PrintWriter out;
 	
@@ -165,57 +251,6 @@ public class SolutionDay15_C0002 {
 			String more = next;
 			next = null;
 			return more.charAt(0);
-		}
-	}
-	
-	static class D{
-		
-		public static void pp(int[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-		
-		public static void pp(char[][] board, int row, int col) {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < row; ++i) {
-				for (int j = 0; j < col; ++j) {
-					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
-				}
-			}
-			System.out.println(sb.toString());
-		}
-	}
-	
-	static class ArrayUtils {
-
-		public static void fill(int[][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				Arrays.fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-		
-		public static void fill(int[][][][] f, int value) {
-			for (int i = 0; i < f.length; ++i) {
-				fill(f[i], value);
-			}
-		}
-	}
-	
-	static class Num{
-		public static <K> void inc(Map<K, Integer> mem, K k) {
-			if (!mem.containsKey(k)) mem.put(k, 0);
-			mem.put(k, mem.get(k) + 1);
 		}
 	}
 }
