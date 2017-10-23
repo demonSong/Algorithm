@@ -7,112 +7,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class SolutionDay16_P3246 {
+public class SolutionDay17_S0001 {
 	
-	String INPUT = "./data/judge/201710/P3246.txt";
+	String INPUT = "./data/judge/201710/S0001.txt";
 	
 	public static void main(String[] args) throws IOException {
-		new SolutionDay16_P3246().run();
-	}
-	
-	class P implements Comparable<P>{
-		int x;
-		int y;
-		
-		int id;
-		
-		P(int x, int y){
-			this.x = x;
-			this.y = y;
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		for (int i = 0; i < t; ++i) {
+			int a = in.nextInt();
+			int b = in.nextInt();
+			System.out.println(Math.min(a, b) + 2 * Math.max(a, b));
 		}
-		
-		P sub(P a) {
-			return new P(x - a.x, y - a.y);
-		}
-		
-		int det(P a) {
-			return x * a.y - y * a.x;
-		}
-
-		@Override
-		public int compareTo(P o) {
-			return x != o.x ? x - o.x : y - o.y;
-		}
-	}
-	
-	int N;
-	List<P> ps;
-	
-	double area(P a, P b, P c) {
-		double ans = (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
-		return 0.5 * Math.abs(ans);
-	}
-	
-	P[] convexHull(P[] p, int n) {
-		Arrays.sort(p);
-		P[] qs = new P[n * 2];
-		
-		int k = 0;
-		for (int i = 0; i < n; ++i) {
-			while (k > 1 && qs[k - 1].sub(qs[k - 2]).det(p[i].sub(qs[k - 1])) < 0) k--;
-			qs[k++] = p[i];
-		}
-		
-		for (int i = n - 2, t = k; i >= 0; --i) {
-			while (k > t && qs[k - 1].sub(qs[k - 2]).det(p[i].sub(qs[k - 1])) < 0) k--;
-			qs[k++] = p[i];
-		}
-		
-		P[] res = new P[k - 1];
-		System.arraycopy(qs, 0, res, 0, k - 1);
-		return res;
-	}
-	
-	double polygonArea(P[] qs) {
-		double sum = 0;
-		int n = qs.length;
-		for (int i = 1; i < n - 1; ++i) {
-			sum += area(qs[0], qs[i], qs[i + 1]);
-		}
-		return sum;
-	}
-	
-	void solve(P[] p) {
-		P[] qs = convexHull(p, N);
-		int n = qs.length;
-		
-		double min = Double.MAX_VALUE;
-		for (int i = 0; i < n; ++i) {
-			swap(p, i, N - 1);
-			min = Math.min(min, polygonArea(convexHull(p, N - 1)));
-		}
-		out.printf("%.2f\n", min);
-	}
-	
-	void swap(P[] p, int i, int j) {
-		P tmp = p[i];
-		p[i] = p[j];
-		p[j] = tmp;
+		in.close();
 	}
 	
 	void read() {
-		while (true) {
-			N = ni();
-			if (N == 0) break;
-			P[] p = new P[N];
-			ps = new ArrayList<P>();
-			for (int i = 0; i < N; ++i) {
-				p[i] = new P(ni(), ni());
-				p[i].id = i;
-				ps.add(p[i]);
-			}
-			solve(p);
+		int t = ni();
+		for (int i = 0; i < t; ++i) {
+			int a = ni();
+			int b = ni();
+			out.println(Math.min(a, b) + 2 * Math.max(a, b));
 		}
 	}
 
@@ -233,6 +153,57 @@ public class SolutionDay16_P3246 {
 			String more = next;
 			next = null;
 			return more.charAt(0);
+		}
+	}
+	
+	static class D{
+		
+		public static void pp(int[][] board, int row, int col) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < row; ++i) {
+				for (int j = 0; j < col; ++j) {
+					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
+				}
+			}
+			System.out.println(sb.toString());
+		}
+		
+		public static void pp(char[][] board, int row, int col) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < row; ++i) {
+				for (int j = 0; j < col; ++j) {
+					sb.append(board[i][j] + (j + 1 == col ? "\n" : " "));
+				}
+			}
+			System.out.println(sb.toString());
+		}
+	}
+	
+	static class ArrayUtils {
+
+		public static void fill(int[][] f, int value) {
+			for (int i = 0; i < f.length; ++i) {
+				Arrays.fill(f[i], value);
+			}
+		}
+		
+		public static void fill(int[][][] f, int value) {
+			for (int i = 0; i < f.length; ++i) {
+				fill(f[i], value);
+			}
+		}
+		
+		public static void fill(int[][][][] f, int value) {
+			for (int i = 0; i < f.length; ++i) {
+				fill(f[i], value);
+			}
+		}
+	}
+	
+	static class Num{
+		public static <K> void inc(Map<K, Integer> mem, K k) {
+			if (!mem.containsKey(k)) mem.put(k, 0);
+			mem.put(k, mem.get(k) + 1);
 		}
 	}
 }
