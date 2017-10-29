@@ -1,6 +1,7 @@
 package com.daimens.algorithm.october;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SolutionDay08_M0001 {
@@ -121,6 +122,48 @@ public class SolutionDay08_M0001 {
 		robot6(0, k, n);
 		return ans6;
 
+	}
+
+	public int findRadius(int[] houses, int[] heaters) {
+		int ans = 0;
+		int n1 = houses.length;
+		int n2 = heaters.length;
+		Arrays.sort(houses);
+		Arrays.sort(heaters);
+		
+		if (n1 == 1) {
+			for (int i = 0; i < n2; ++i) {
+				ans = Math.min(ans, heaters[i] - houses[0]);
+			}
+		}
+		else if (n2 == 1) {
+			ans = Math.max(Math.abs(houses[0] - heaters[0]), Math.abs(houses[n1 - 1] - heaters[0]));
+		}
+		else {
+			int j = 0;
+			for (int i = 0; i < n2; ++i) {
+				ans = Math.max(ans, Math.abs(heaters[i] - houses[j]));
+				j++;
+				if (j > n1 - 1) {
+					return ans;
+				}
+				if (i == n2 - 1) {
+					ans = Math.max(ans, houses[n1 - 1] - heaters[i]);
+				}
+				while (ans >= Math.abs(houses[j] - heaters[i])
+						|| houses[j] - heaters[i] < Math.abs(houses[j] - heaters[i + 1])) {
+					ans = Math.max(ans, houses[j] - heaters[i]);
+					j++;
+					if (j > n1 - 1) {
+						return ans;
+					}
+				}
+				if (i == n2 - 1) {
+					ans = Math.max(ans, houses[n1 - 1] - heaters[i]);
+				}
+			}
+		}
+		return ans;
 	}
 
 	public static void main(String[] args) {

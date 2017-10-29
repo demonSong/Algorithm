@@ -103,34 +103,53 @@ public class SolutionDay22_L0712 {
 	// }
 	
 	public int minimumDeleteSum(String s1, String s2) {
-		char[] cs1 = s1.toCharArray();
-		char[] cs2 = s2.toCharArray();
-		int n1 = cs1.length;
-		int n2 = cs2.length;
-		int[][] dp = new int[n1 + 1][n2 + 1];
-		
-		for (int i = 0, t = 0; i < n2; ++i) {
-			t += cs2[i];
-			dp[0][i + 1] = t;
-		}
-		
-		for (int i = 0, t = 0; i < n1; ++i) {
-			t += cs1[i];
-			dp[i + 1][0] = t;
-		}
-		
-		for (int i = 1; i <= n1; ++i) {
-			for (int j = 1; j <= n2; ++j) {
-				if (cs1[i - 1] == cs2[j - 1]) {
+		int n = s1.length();
+		int m = s2.length();
+		int[][] dp = new int[n + 1][m + 1];
+		char[] a = s1.toCharArray();
+		char[] b = s2.toCharArray();
+		dp[0][0] = 0;
+		for (int i = 1; i <= n; ++i) {
+			for (int j = 1; j <= m; ++j) {
+				if (a[i - 1] == b[j - 1]) {
 					dp[i][j] = dp[i - 1][j - 1];
-				}
-				else {
-					dp[i][j] = Math.min(dp[i][j - 1] + cs2[j - 1], dp[i - 1][j] + cs1[i - 1]);
+				} else {
+					dp[i][j] = Math.min(a[i - 1] + dp[i - 1][j], b[j - 1] + dp[i][j - 1]);
 				}
 			}
 		}
-		return dp[n1][n2];
+		return dp[n][m];
 	}
+	
+//	public int minimumDeleteSum(String s1, String s2) {
+//		char[] cs1 = s1.toCharArray();
+//		char[] cs2 = s2.toCharArray();
+//		int n1 = cs1.length;
+//		int n2 = cs2.length;
+//		int[][] dp = new int[n1 + 1][n2 + 1];
+//		
+//		for (int i = 0, t = 0; i < n2; ++i) {
+//			t += cs2[i];
+//			dp[0][i + 1] = t;
+//		}
+//		
+//		for (int i = 0, t = 0; i < n1; ++i) {
+//			t += cs1[i];
+//			dp[i + 1][0] = t;
+//		}
+//		
+//		for (int i = 1; i <= n1; ++i) {
+//			for (int j = 1; j <= n2; ++j) {
+//				if (cs1[i - 1] == cs2[j - 1]) {
+//					dp[i][j] = dp[i - 1][j - 1];
+//				}
+//				else {
+//					dp[i][j] = Math.min(dp[i][j - 1] + cs2[j - 1], dp[i - 1][j] + cs1[i - 1]);
+//				}
+//			}
+//		}
+//		return dp[n1][n2];
+//	}
 	
 //	public int minimumDeleteSum(String s1, String s2) {
 //		dp = new int[s1.length() + 1][s2.length() + 1];
