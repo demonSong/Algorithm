@@ -1,6 +1,6 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay29_L0502 {
+public class SolutionDay29_L0718 {
 	
 		public int findLength(int[] A, int[] B) {
 			int n = A.length;
@@ -18,8 +18,6 @@ public class SolutionDay29_L0502 {
 					}
 					
 					max = Math.max(dp[i][j], max);
-					max = Math.max(dp[i - 1][j], max);
-					max = Math.max(dp[i][j - 1], max);
 				}
 			}
 			
@@ -46,6 +44,10 @@ public class SolutionDay29_L0502 {
 //    int dfs(int[] A, int[] B, int n, int m) {
 //    	if (n == -1 || m == -1) return 0;
 //    	if (dp[n][m] >= 0) return dp[n][m];
+//    	
+//    	dfs(A, B, n - 1, m);
+//    	dfs(A, B, n, m - 1);
+//    	
 //    	if (A[n] == B[m]) {
 //    		int ans = 1;
 //    		int sub = dfs(A, B, n - 1, m - 1);
@@ -57,8 +59,6 @@ public class SolutionDay29_L0502 {
 //    		return ans + sub;
 //    	}
 //    	else {
-//    		dfs(A, B, n - 1, m);
-//    		dfs(A, B, n, m - 1);
 //    		dp[n][m] = 0;
 //    		return 0;
 //    	}
@@ -105,7 +105,7 @@ public class SolutionDay29_L0502 {
     
 	
 	public static void main(String[] args) {
-		SolutionDay29_L0502 day = new SolutionDay29_L0502();
+		SolutionDay29_L0718 day = new SolutionDay29_L0718();
 		int[] A = {1, 2, 3, 2, 1};
 		int[] B = {3, 2, 1, 4, 7};
 		System.out.println(day.findLength(A, B));
