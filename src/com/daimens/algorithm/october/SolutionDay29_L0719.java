@@ -2,7 +2,7 @@ package com.daimens.algorithm.october;
 
 import java.util.Arrays;
 
-public class SolutionDay29_L0503 {
+public class SolutionDay29_L0719 {
     
 	public int smallestDistancePair(int[] nums, int k) {
 		int n = nums.length;
@@ -37,7 +37,7 @@ public class SolutionDay29_L0503 {
 	}
 	
 	public static void main(String[] args) {
-		SolutionDay29_L0503 day = new SolutionDay29_L0503();
+		SolutionDay29_L0719 day = new SolutionDay29_L0719();
 		int[] nums = {1, 3, 1};
 		Arrays.sort(nums);
 		int k = 1;
