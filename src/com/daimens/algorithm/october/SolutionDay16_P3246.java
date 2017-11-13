@@ -55,7 +55,8 @@ public class SolutionDay16_P3246 {
 	}
 	
 	P[] convexHull(P[] p, int n) {
-		Arrays.sort(p);
+		Arrays.sort(p, 0, n);
+		
 		P[] qs = new P[n * 2];
 		
 		int k = 0;
