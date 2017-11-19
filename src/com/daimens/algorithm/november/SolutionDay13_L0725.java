@@ -1,6 +1,6 @@
 package com.daimens.algorithm.november;
 
-public class SolutionDay13_L0501 {
+public class SolutionDay13_L0725 {
 	
 	
 // 	public ListNode[] splitListToParts(ListNode root, int k) {
@@ -47,6 +47,7 @@ public class SolutionDay13_L0501 {
 	
 	public ListNode[] splitListToParts(ListNode root, int k) {
 		ListNode[] nodes = new ListNode[k];
+		
 		for (int i = 0; i < k; ++i) {
 			nodes[i] = new ListNode(-1);
 		}
@@ -65,7 +66,7 @@ public class SolutionDay13_L0501 {
 
         int j = 0;
         for (ListNode cur = root; cur != null; cur = cur.next){
-            curs[j].next = new ListNode(cur.val);
+            curs[j].next = new ListNode(cur.val);	
             curs[j] = curs[j].next;
             nums[j] --;
             if (nums[j] == 0) {
@@ -81,7 +82,7 @@ public class SolutionDay13_L0501 {
 	}
  	
  	public static void main(String[] args) {
- 		SolutionDay13_L0501 day = new SolutionDay13_L0501();
+ 		SolutionDay13_L0725 day = new SolutionDay13_L0725();
  		ListNode root = new ListNode(1);
  		root.next = new ListNode(2);
  		root.next.next = new ListNode(3);

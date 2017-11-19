@@ -6,15 +6,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SolutionDay13_L0502 {
+public class SolutionDay13_L0726 {
 	
 	
 	public String countOfAtoms(String formula) {
         Map<String, Integer> map = go(formula.toCharArray(), 0, formula.length() - 1);
+        
         StringBuilder sb = new StringBuilder();
         List<String> set = new ArrayList<>(map.keySet());
         Collections.sort(set);
-        
         for (String key : set) {
         	sb.append(key);
         	if (map.get(key) > 1) {
@@ -26,16 +26,16 @@ public class SolutionDay13_L0502 {
 	
 	public Map<String, Integer> go(char[] cs, int s, int e){
 		if (s > e) return new HashMap<>();
+		
 		Map<String, Integer> ans = new HashMap<>();
 		int idx = new String(cs).substring(s, e + 1).indexOf("(");
 		if (idx != -1) idx += s;
 		if (idx == -1) {
+			
 			StringBuilder sb = new StringBuilder();
 			for (int i = s; i <= e;) {
-				
 				if (Character.isUpperCase(cs[i])) {
 					sb.append(cs[i]);
-					
 					i ++;
 					
 					if (i <= e && Character.isUpperCase(cs[i])) {
@@ -131,39 +131,28 @@ public class SolutionDay13_L0502 {
 			
 			Map<String, Integer> rt = go(cs, j, e);
 			
-			for (String lf_key : lf.keySet()) {
-				if (!ans.containsKey(lf_key)) {
-					ans.put(lf_key, lf.get(lf_key));
-				}
-				else {
-					ans.put(lf_key, ans.get(lf_key) + lf.get(lf_key));
-				}
-			}
-			
-			for (String rt_key : rt.keySet()) {
-				if (!ans.containsKey(rt_key)) {
-					ans.put(rt_key, rt.get(rt_key));
-				}
-				else {
-					ans.put(rt_key, ans.get(rt_key) + rt.get(rt_key));
-				}
-			}
-			
-			for (String include_key : include.keySet()) {
-				if (!ans.containsKey(include_key)) {
-					ans.put(include_key, include.get(include_key));
-				}
-				else {
-					ans.put(include_key, ans.get(include_key) + include.get(include_key));
-				}
-			}
+			add(ans, lf);
+			add(ans, include);
+			add(ans, rt);
 			
 			return ans;
 		}
 	}
 	
+	public void add(Map<String, Integer> ans, Map<String, Integer> tmp) {
+		for (String key : tmp.keySet()) {
+			if (!ans.containsKey(key)) {
+				ans.put(key, tmp.get(key));
+			}
+			else {
+				ans.put(key, ans.get(key) + tmp.get(key));
+			}
+		}
+	}
+	
+	
 	public static void main(String[] args) {
-		SolutionDay13_L0502 day = new SolutionDay13_L0502();
+		SolutionDay13_L0726 day = new SolutionDay13_L0726();
 		System.out.println(day.countOfAtoms("BeBe49"));
 	}
 

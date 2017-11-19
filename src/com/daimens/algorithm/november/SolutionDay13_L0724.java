@@ -1,6 +1,6 @@
 package com.daimens.algorithm.november;
 
-public class SolutionDay13_L0500 {
+public class SolutionDay13_L0724 {
 	
 	public int pivotIndex(int[] nums) {
 		int n = nums.length;
@@ -30,6 +30,6 @@ public class SolutionDay13_L0500 {
 
 	
 	public static void main(String[] args) {
-		SolutionDay13_L0500 day = new SolutionDay13_L0500();
+		SolutionDay13_L0724 day = new SolutionDay13_L0724();
 	}
 }
