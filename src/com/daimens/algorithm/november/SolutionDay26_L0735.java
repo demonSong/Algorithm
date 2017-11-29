@@ -2,7 +2,7 @@ package com.daimens.algorithm.november;
 
 import java.util.Stack;
 
-public class SolutionDay26_L0502 {
+public class SolutionDay26_L0735 {
 	
 //	public int[] asteroidCollision(int[] asteroids) {
 //		int n = asteroids.length;
@@ -47,13 +47,9 @@ public class SolutionDay26_L0502 {
 	
 	public int[] asteroidCollision(int[] asteroids) {
 		int n = asteroids.length;
-		if (n == 0) return new int[] {};
-		if (n == 1) return asteroids;
-		
 		Stack<Integer> stack = new Stack<>();
-		stack.push(asteroids[0]);
 		
-		for (int i = 1; i < n; ++i) {
+		for (int i = 0; i < n; ++i) {
 			
 			if (stack.isEmpty()) {
 				stack.push(asteroids[i]);
@@ -82,16 +78,8 @@ public class SolutionDay26_L0502 {
 				stack.push(curr);
 			}
 		}
-	
 		
-		Integer[] aa = stack.toArray(new Integer[0]);
-		
-		int[] ans = new int[aa.length];
-		for (int j = 0; j < aa.length; ++j) {
-			ans[j] = aa[j];
-		}
-		
-        return ans;
+        return stack.stream().mapToInt(i -> i).toArray();
     }
 	
 	boolean isPos(int num) {
@@ -99,7 +87,7 @@ public class SolutionDay26_L0502 {
 	}
 	
 	public static void main(String[] args) {
-		SolutionDay26_L0502 day = new SolutionDay26_L0502();
+		SolutionDay26_L0735 day = new SolutionDay26_L0735();
 		int[] num = {1, -2, -2};
 		System.out.println(day.asteroidCollision(num));
 	}
