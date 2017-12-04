@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-public class SolutionDay03_L0502 {
+public class SolutionDay03_L0740 {
 	
 //	class Pair implements Comparable<Pair>{
 //		
@@ -213,7 +213,7 @@ public class SolutionDay03_L0502 {
     
 	
 	public static void main(String[] args) {
-		SolutionDay03_L0502 day = new SolutionDay03_L0502();
+		SolutionDay03_L0740 day = new SolutionDay03_L0740();
 		int[] nums = {8,7,3,8,1,4,10,10,10,2};
 		System.out.println(day.deleteAndEarn(nums));
 	}
