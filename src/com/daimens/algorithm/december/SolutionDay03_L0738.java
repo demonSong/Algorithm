@@ -1,6 +1,6 @@
 package com.daimens.algorithm.december;
 
-public class SolutionDay03_L0501 {
+public class SolutionDay03_L0738 {
 	
 //	
 //	public int monotoneIncreasingDigits(int N) {
@@ -28,7 +28,7 @@ public class SolutionDay03_L0501 {
 				ss.append("9");
 			}
 			int cmp = Integer.parseInt(ss.toString());
-			if (cmp <= N && valid(ss.toString()))
+			if (valid(ss.toString()))
 				max = Math.max(max, cmp);
 		}
 		
@@ -47,7 +47,7 @@ public class SolutionDay03_L0501 {
 	}
 	
 	public static void main(String[] args) {
-		SolutionDay03_L0501 day = new SolutionDay03_L0501();
-		System.out.println(day.monotoneIncreasingDigits(332));
+		SolutionDay03_L0738 day = new SolutionDay03_L0738();
+		System.out.println(day.monotoneIncreasingDigits(23289));
 	}
 }
