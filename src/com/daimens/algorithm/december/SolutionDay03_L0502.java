@@ -160,42 +160,56 @@ public class SolutionDay03_L0502 {
 //    }
     
 	
-    public int deleteAndEarn(int[] nums) {
-    	if (nums.length == 0) return 0;
-    	
-    	Map<Integer, Integer> mem = new HashMap<>();
-    	for (int n : nums) {
-    		mem.put(n, mem.getOrDefault(n, 0) + 1);
-    	}
-    	
-    	int[] cnt = new int[mem.size()];
-    	Set<Integer> keys = mem.keySet();
-    	
-    	int[] key = keys.stream().mapToInt(i -> i).toArray();
-    	
-    	Arrays.sort(key);
-    	for (int i = 0; i < key.length; ++i) {
-    		cnt[i] = mem.get(key[i]);
-    	}
-    	
-    	int[] dp = new int[20000 + 16];
-    	int last = key.length;
-    	
-    	dp[last - 1] = key[last - 1] * cnt[last - 1];
-    	for (int i = last - 2; i >= 0; --i) {
-    		if (key[i] + 1 == key[i + 1]) {
-    			dp[i] = Math.max(dp[i], dp[i + 2] + key[i] * cnt[i]);
-    		}
-    		else {
-    			dp[i] = Math.max(dp[i], dp[i + 1] + key[i] * cnt[i]);
-    		}
-    		
-    		dp[i] = Math.max(dp[i], dp[i + 1]);
-    	}
-    	
-    	return dp[0];
-    }
+//    public int deleteAndEarn(int[] nums) {
+//    	if (nums.length == 0) return 0;
+//    	
+//    	Map<Integer, Integer> mem = new HashMap<>();
+//    	for (int n : nums) {
+//    		mem.put(n, mem.getOrDefault(n, 0) + 1);
+//    	}
+//    	
+//    	int[] cnt = new int[mem.size()];
+//    	Set<Integer> keys = mem.keySet();
+//    	
+//    	int[] key = keys.stream().mapToInt(i -> i).toArray();
+//    	Arrays.sort(key);
+//    	
+//    	for (int i = 0; i < key.length; ++i) {
+//    		cnt[i] = mem.get(key[i]);
+//    	}
+//    	
+//    	int[] dp = new int[20000 + 16];
+//    	int last = key.length;
+//    	
+//    	dp[last - 1] = key[last - 1] * cnt[last - 1];
+//    	for (int i = last - 2; i >= 0; --i) {
+//    		if (key[i] + 1 == key[i + 1]) {
+//    			dp[i] = Math.max(dp[i], dp[i + 2] + key[i] * cnt[i]);
+//    		}
+//    		else {
+//    			dp[i] = Math.max(dp[i], dp[i + 1] + key[i] * cnt[i]);
+//    		}
+//    		
+//    		dp[i] = Math.max(dp[i], dp[i + 1]);
+//    	}
+//    	
+//    	return dp[0];
+//    }
     
+	  public int deleteAndEarn(int[] nums) {
+		  int[] cnt = new int[10016];
+		  for (int num : nums) cnt[num]++;
+		  
+		  int[] dp = new int[10016];
+		  dp[0] = 0;
+		  dp[1] = cnt[1];
+		  
+		  for (int i = 2; i <= 10000; ++i) {
+			  dp[i] = Math.max(dp[i - 1], dp[i - 2] + cnt[i] * i);
+		  }
+		  
+		  return dp[10000];
+	  }
     
 	
 	public static void main(String[] args) {
