@@ -26,11 +26,9 @@ public class SolutionDay03_L0739 {
         	}
         	else ans[i] = 0;
         }
-        
 		return ans;
     }
 
-	
 	public static void main(String[] args) {
 		SolutionDay03_L0739 day = new SolutionDay03_L0739();
 	}
