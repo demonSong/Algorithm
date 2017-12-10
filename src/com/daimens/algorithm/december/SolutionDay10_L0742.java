@@ -36,13 +36,16 @@ public class SolutionDay10_L0742 {
 	
 	public int findClosestLeaf(TreeNode root, int k) {
 		int INF = 0x3f3f3f3f;
-		
 		graph  = new ArrayList[1016];
 		leaves = new ArrayList<>();
 		dist   = new int[1016];
 		Arrays.fill(dist, INF);
+		
 		for (int i = 0; i < 1016; ++i) graph[i] = new ArrayList<>();
+		
+		// 树转无向图，并求得叶子结点
 		dfs(root);
+		// 无脑k出发到其他所有结点的最短路径
 		efs(k, -1, 0);
 		
 		int min = INF;
