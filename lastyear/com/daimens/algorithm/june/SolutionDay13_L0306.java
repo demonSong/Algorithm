@@ -2,8 +2,6 @@ package com.daimens.algorithm.june;
 
 import java.math.BigInteger;
 
-import javafx.util.converter.NumberStringConverter;
-
 /**
  * 
  * @author DemonSong

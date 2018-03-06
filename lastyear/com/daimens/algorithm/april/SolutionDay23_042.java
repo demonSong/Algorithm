@@ -1,14 +1,5 @@
 package com.daimens.algorithm.april;
 
-import java.awt.image.AreaAveragingScaleFilter;
-import java.awt.image.RescaleOp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-
-import sun.launcher.resources.launcher_fr;
-
 /**
  * 
  * @author DemonSong

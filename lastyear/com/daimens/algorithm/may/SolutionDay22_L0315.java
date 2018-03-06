@@ -1,12 +1,7 @@
 package com.daimens.algorithm.may;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import com.sun.scenario.effect.LinearConvolveCoreEffect;
-
-import sun.launcher.resources.launcher_fr;
 
 /**
  * 

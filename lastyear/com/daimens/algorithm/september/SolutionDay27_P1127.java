@@ -7,11 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.StringTokenizer;
-
-import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class SolutionDay27_P1127 {
 	

@@ -1,6 +1,6 @@
 package com.daimens.algorithm.october;
 
-public class SolutionDay01_L0686 {
+public class SolutionDay02_L0686 {
 	
 	public int repeatedStringMatch(String A, String B) {
 		int nb = B.length();
@@ -17,7 +17,7 @@ public class SolutionDay01_L0686 {
     }
 	
 	public static void main(String[] args) {
-		SolutionDay01_L0686 day = new SolutionDay01_L0686();
+		SolutionDay02_L0686 day = new SolutionDay02_L0686();
 	}
 	
 }

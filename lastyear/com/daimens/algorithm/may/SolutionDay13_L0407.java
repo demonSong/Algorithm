@@ -3,8 +3,6 @@ package com.daimens.algorithm.may;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-import javafx.scene.control.Cell;
-
 /**
  * 
  * @author DemonSong
@@ -54,7 +52,6 @@ public class SolutionDay13_L0407 {
 		
 		int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
 		
-		// 从最低的cell遍历
 		PriorityQueue<Cell> queue = new PriorityQueue<>(1,new Comparator<Cell>(){
 			@Override
 			public int compare(Cell o1, Cell o2) {

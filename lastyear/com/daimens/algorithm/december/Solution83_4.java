@@ -11,16 +11,25 @@ package com.daimens.algorithm.december;
  *
  */
 public class Solution83_4 {
+	
+	class ListNode{
+		int val;
+		ListNode next;
+		ListNode(int x){
+			val =x;
+		}
+	}
+	
 	public ListNode deleteDuplicates(ListNode head){
 		if (head == null || head.next == null){
 			return head;
 		}
 		
-		ListNode p = head;//前指针
-		ListNode q = p.next;//后指针
+		ListNode p = head;
+		ListNode q = p.next;
 		
 		while (p !=null && q!=null){
-			if(p.val == q.val){ //元素相等
+			if(p.val == q.val){
 				p.next = q.next;
 				q = q.next;
 			}else{
@@ -29,13 +38,5 @@ public class Solution83_4 {
 			}
 		}
 		return head;
-	}
-}
-
-class ListNode{
-	int val;
-	ListNode next;
-	ListNode(int x){
-		val =x;
 	}
 }

@@ -1,7 +1,5 @@
 package com.daimens.algorithm.april;
 
-import sun.launcher.resources.launcher;
-
 /**
  * 
  * @author DemonSong
@@ -13,7 +11,7 @@ import sun.launcher.resources.launcher;
  * return 1->4->3->2->5->NULL
  * Note:
  * Given m, n satisfy the following condition:
- * 1 ≤ m ≤ n ≤ length of list.
+ * 1 鈮� m 鈮� n 鈮� length of list.
  * 
  */
 public class SolutionDay02_092 {

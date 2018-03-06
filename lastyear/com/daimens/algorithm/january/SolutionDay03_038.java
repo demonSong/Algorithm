@@ -1,7 +1,5 @@
 package com.daimens.algorithm.january;
 
-import com.sun.glass.ui.Cursor;
-
 /**
  * 
  * @author Demon Song

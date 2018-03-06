@@ -6,12 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.AbstractDocument.Content;
-
-import org.omg.DynamicAny.NameDynAnyPairSeqHelper;
-
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
-
 /**
  * 
  * @author DemonSong
@@ -58,7 +52,6 @@ public class FileSystem {
 		char type;
 		Map<String, File> files;
 		StringBuilder content;
-		// 初始化文件 d表示文件夹，f表示文件
 		public File(char type) {
 			this.type = type;
 			if (type == 'd') {
@@ -110,7 +103,7 @@ public class FileSystem {
 		for (int i = 0; i < names.length; i++){
 			String name = names[i];
 			if (name.isEmpty()) continue;
-			if (!cur.files.containsKey(name)){ //当前文件夹不存在
+			if (!cur.files.containsKey(name)){
 				cur.files.put(name, new File('d'));
 			}
 			cur = cur.files.get(name);
@@ -123,7 +116,7 @@ public class FileSystem {
         for (int i = 0; i < names.length; i++){
         	String name = names[i];
         	if (name.isEmpty()) continue;
-        	if (i == names.length - 1 && !cur.files.containsKey(name)){ //这些文件已经存在了
+        	if (i == names.length - 1 && !cur.files.containsKey(name)){
         		cur.files.put(name, new File('f'));
         	}
         	cur = cur.files.get(name);
@@ -137,7 +130,7 @@ public class FileSystem {
         for (int i = 0; i < names.length; i++){
         	String name = names[i];
         	if(name.isEmpty()) continue;
-        	if (i == names.length - 1 && !cur.files.containsKey(name)){ //这些文件已经存在了
+        	if (i == names.length - 1 && !cur.files.containsKey(name)){
         		cur.files.put(name, new File('f'));
         	}
         	cur = cur.files.get(name);

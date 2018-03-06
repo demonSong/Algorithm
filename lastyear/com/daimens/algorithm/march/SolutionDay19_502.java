@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import sun.launcher.resources.launcher;
-
 /**
  * 
  * @author DemonSong
@@ -171,10 +169,9 @@ public class SolutionDay19_502 {
 			}
 		}
 
-		int[][] dirs = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };  //表示四个方向
+		int[][] dirs = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 
 		
-		//主要还是一个相邻节点的元素更新问题
 		while (!queue.isEmpty()) {
 			int[] cell = queue.poll();
 			for (int[] d : dirs) {
@@ -183,7 +180,6 @@ public class SolutionDay19_502 {
 				if (r < 0 || r >= m || c < 0 || c >= n || matrix.get(r).get(c) <= matrix.get(cell[0]).get(cell[1]) + 1)
 					continue;
 				
-				//后续更新的节点还要放在队列中
 				queue.add(new int[] { r, c });
 				matrix.get(r).set(c, matrix.get(cell[0]).get(cell[1]) + 1);
 			}
