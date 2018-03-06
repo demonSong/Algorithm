@@ -1,0 +1,29 @@
+package com.daimens.algorithm.january;
+
+/**
+ * 
+ * @author Demon Song
+ * 58.Length of Last Word
+ * Given a string s consists of upper/lower-case alphabets and empty space characters ' ', 
+ * return the length of last word in the string.If the last word does not exist, return 0.
+ * Note: A word is defined as a character sequence consists of non-space characters only.
+ * For example, 
+ * Given s = "Hello World",
+ * return 5.
+ *
+ */
+public class SolutionDay13_058 {
+	
+	//数组从后往前遍历
+	public int lengthOfLastWord(String s) {
+		int result = 0,i = s.length()-1;
+		while(i >= 0 && s.charAt(i) ==' '){
+			i--;
+		}
+		while(i >= 0 && s.charAt(i) !=' '){
+			result++;
+			i--;
+		}
+        return result;
+    }
+}
