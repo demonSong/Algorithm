@@ -1,6 +1,6 @@
 package com.daimens.algorithm.april;
 
-public class SolutionDay08_L0501 {
+public class SolutionDay08_L0814 {
 	
     public TreeNode pruneTree(TreeNode root) {
     	TreeNode ret = null;
@@ -31,7 +31,7 @@ public class SolutionDay08_L0501 {
     }
 	
 	public static void main(String[] args) {
-		SolutionDay08_L0501 day = new SolutionDay08_L0501();
+		SolutionDay08_L0814 day = new SolutionDay08_L0814();
 		TreeNode root = new TreeNode(1);
 		root.right = new TreeNode(0);
 		root.right.left = new TreeNode(0);

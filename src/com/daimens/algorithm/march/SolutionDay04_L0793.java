@@ -1,6 +1,6 @@
 package com.daimens.algorithm.march;
 
-public class SolutionDay04_L0503 {
+public class SolutionDay04_L0793 {
 	
 	
     public int preimageSizeFZF(int K) {
@@ -26,7 +26,7 @@ public class SolutionDay04_L0503 {
     }
     
     public static void main(String[] args) {
-    	SolutionDay04_L0503 day = new SolutionDay04_L0503();
+    	SolutionDay04_L0793 day = new SolutionDay04_L0793();
     	System.out.println(day.preimageSizeFZF(0));
 	}
 }

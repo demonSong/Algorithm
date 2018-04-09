@@ -1,6 +1,6 @@
 package com.daimens.algorithm.april;
 
-public class SolutionDay08_L0502 {
+public class SolutionDay08_L0813 {
 	
     public double largestSumOfAverages(int[] A, int K) {
     	int n = A.length;
@@ -29,7 +29,7 @@ public class SolutionDay08_L0502 {
     }
     
    public static void main(String[] args) {
-		SolutionDay08_L0502 day = new SolutionDay08_L0502();
+		SolutionDay08_L0813 day = new SolutionDay08_L0813();
 		int[] A = {4, 1, 7, 5, 6, 2, 3};
 		System.out.println(day.largestSumOfAverages(A, 4));
 	}

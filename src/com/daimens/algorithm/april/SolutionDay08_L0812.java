@@ -1,6 +1,6 @@
 package com.daimens.algorithm.april;
 
-public class SolutionDay08_L0500 {
+public class SolutionDay08_L0812 {
 	
     public double largestTriangleArea(int[][] points) {
     	double max = 0;
@@ -26,6 +26,6 @@ public class SolutionDay08_L0500 {
     }
 	
 	public static void main(String[] args) {
-		SolutionDay08_L0500 day = new SolutionDay08_L0500();
+		SolutionDay08_L0812 day = new SolutionDay08_L0812();
 	}
 }	
