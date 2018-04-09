@@ -14,23 +14,6 @@ public class SolutionDay25_L0503 {
     
 
     int[] mem;
-//    public boolean dfs(int[] A, int pos, int a, int a_c, double avg) {
-//    	if (mem[a * a_c] > 0) return true;
-//    	if (pos == A.length) {
-//    		if (Double.compare(avg * a_c, a) == 0) {
-//    			mem[a * a_c] = 1;
-//    			return true; 
-//    		}
-//    	}
-//    	else {
-//    		if (dfs(A, pos + 1, a + A[pos], a_c + 1, avg) || dfs(A, pos + 1, a, a_c + 1, avg)) {
-//    			mem[a * a_c] = 1;
-//    			return true;
-//    		}
-//    	}
-//    	return false;
-//    }
-    
     public boolean dfs(int[] A, int pos, int a, int a_c, int b, int b_c) {
     	if (mem[a * a_c] > 0) return true;
     	if (pos == A.length) {
@@ -47,6 +30,7 @@ public class SolutionDay25_L0503 {
     			return true;
     		}
     	}
+    	mem[a * a_c] = 2;
     	return false;
     }
 	
